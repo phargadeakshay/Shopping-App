@@ -13,7 +13,31 @@ const CartSlice = createSlice({
   },
 
   reducers: {
-   
+    increament:(state, action)=> {
+        for (var i in state.data) {
+          if (state.data[i]._id === action.payload) {
+            state.data[i].quantity +=1 ;
+             break; //Stop this loop, we found it!
+          }
+        }
+
+      },
+    decreament:(state, action)=> {
+        for (var i in state.data) {
+          if (state.data[i]._id === action.payload && state.data[i].quantity >1) {
+            state.data[i].quantity -=1 ;
+            // console.log("remove form cart kkkkkkkkkkk");
+             break; 
+             //Stop this loop, we found it!
+          }
+        }
+
+      },
+      
+      removecart:(state, action)=> {
+        state.data = state.data.filter((item) => item._id !== action.payload);
+        // console.log(action.payload,"remove form cart tttttttttttttt");
+      },
   },
 
   extraReducers: (builder) => {
@@ -46,5 +70,5 @@ export const fetchCartDetails = createAsyncThunk("cartslice", async () => {
   return cartitems;
 });
 
-export const {} = CartSlice.actions;
+export const { removecart,increament,decreament} = CartSlice.actions;
 export default CartSlice.reducer;

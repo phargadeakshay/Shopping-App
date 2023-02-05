@@ -4,6 +4,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const [fliterrange, setFliteRrange] = useState(100);
+  const [isVisible, setIsVisible] = useState(false);
+
   const [navbar, setNavbar] = useState(false);
   return (
     <nav className="w-full bg-red-500 shadow">

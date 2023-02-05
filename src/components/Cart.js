@@ -18,7 +18,26 @@ const Cart = () => {
   }, []);
   console.log(cartdata, "LLLL");
 
+  const updateCart = (quantity, id, price) => {
+    // dispatch(fetchToCart(updateddata));
+  };
 
+  const increamentt = (id) => {
+    dispatch(increament(id));
+  };
+  const decreamentt = (id, quan) => {
+    if (quan > 1) {
+      dispatch(decreament(id));
+    } else {
+      DeleteItem(id);
+      dispatch(removecart(id));
+    }
+  };
+  //   const token = localStorage.getItem("loginusertoken");
+
+  const DeleteItem = (id) => {
+    dispatch(removecart(id));
+  };
 
   var sutotal = 0;
   var mul = 1;
@@ -44,8 +63,24 @@ const Cart = () => {
   };
   totalPrice();
   // console.log(sutotal,sum,"------------------sum-----------")
+  const CheckCouponCode = async () => {
+    await axios
+      .post(`https://ecommerstore.onrender.com/verifycoupon`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        coupon,
+      })
+      .then((res) => {
+        setCouponresdata(res);
 
-
+        console.log(res, "11111111111", couponresdata.status);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  // // console.log(localStorage.getItem("email1"))
 
   if (status === STATUSES.LOADING) {
     return (
@@ -106,7 +141,10 @@ const Cart = () => {
                     <td className="p-4 px-2 text-center whitespace-nowrap">
                       <div>
                         <button
-                      
+                          onClick={() => {
+                            updateCart(item.quantity - 1, item._id, item.price);
+                            decreamentt(item._id, item.quantity);
+                          }}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +164,8 @@ const Cart = () => {
                         <span className="p-3">{item.quantity}</span>
                         <button
                           onClick={() => {
-                      
+                            updateCart(item.quantity + 1, item._id, item.price);
+                            increamentt(item._id);
                           }}
                         >
                           <svg
@@ -153,7 +192,7 @@ const Cart = () => {
                       &#8377;{item.price * item.quantity}
                     </td>
                     <td className="p-4 px-2 text-center whitespace-nowrap">
-                      <button >
+                      <button onClick={() => DeleteItem(item._id)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="w-6 h-6 text-red-400"
@@ -193,6 +232,7 @@ const Cart = () => {
                   type="text"
                   placeholder="coupon code mm7a710sm  this free coupon"
                 //   value="mm7a710sm"
+                  onChange={(e) => setCoupon(e.target.value)}
                   className="
                 w-full
                 px-2
@@ -213,7 +253,7 @@ const Cart = () => {
                     </span>
                   ))}
                 <button
-                 
+                  onClick={CheckCouponCode}
                   className="
                 px-2
                 py-2
