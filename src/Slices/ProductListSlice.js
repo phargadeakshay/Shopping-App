@@ -12,7 +12,11 @@ const ProductListSlice = createSlice({
     status: STATUSES.IDLE,
   },
 
-  reducers: {},
+  reducers: {
+    AtoZshort:(state,action)=>{
+      state.data= state.data.sort()
+    }
+  },
 
   extraReducers: (builder) => {
     builder
@@ -46,5 +50,5 @@ export const fetchproductdata = createAsyncThunk(
   }
 );  
 
-export const {} = ProductListSlice.actions;
+export const {AtoZshort} = ProductListSlice.actions;
 export default ProductListSlice.reducer;
