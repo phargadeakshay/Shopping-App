@@ -1,13 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-
+import { useDispatch } from "react-redux";
 
 const Navbar = () => {
-const SortProducts=(e)=>{
-
-}
-
   const [navbar, setNavbar] = useState(false);
   return (
     <nav className="w-full bg-red-500 shadow">
@@ -76,11 +72,21 @@ const SortProducts=(e)=>{
                 <Link to="/">Home</Link>
               </li>
               <li className="text-gray-600 hover:text-indigo-200 ">
-                <label htmlFor="" className="text-white mr-3">Sorted By:</label>
-                <select name="" id="" className="w-20 border-none hover:text-gray-900" onChange={SortProducts} >
-                    <option value="" >Sort Products</option>
-                    <option value="a_z" >A - Z</option>
-                    <option value="z_a" >Z - A</option>
+                {/* <label htmlFor="" className="text-white mr-3">
+                  Sorted By:
+                </label> */}
+                <select
+                  name=""
+                  id=""
+                  className="w-56 rounded-lg h-8 border-none hover:text-gray-900 focus:outline-none"
+                 
+                >
+                  <option value="">Sort Products</option>
+                  <option value="a_z">A - Z</option>
+                  <option value="z_a">Z - A</option>
+                  <option value="lowtohigh">Price Low-High</option>
+                  <option value="hightolow">Price High-Low</option>
+               
                 </select>
               </li>
             </ul>

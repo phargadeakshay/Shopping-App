@@ -3,7 +3,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchproductdata } from "../Slices/ProductListSlice";
-
+import Loading from "react-loading";
+import { STATUSES } from "../Slices/ProductListSlice";
 const ProductList = () => {
 
   const dispatch = useDispatch();
@@ -17,7 +18,14 @@ const ProductList = () => {
 
  console.log(productlistdata,"product list data")
 
-  // }
+ if (status === STATUSES.LOADING) {
+  return (
+    <div className="flex justify-center">
+      {" "}
+      <Loading type="bubbles" color="#ff0000" height={667} width={375} />
+    </div>
+  );
+}
   return (
     <div className="bg-gray-200">
       <div className="container grid mx-auto md:col-start-1 md:col-end-6 md:col-span-4 bg-white">
