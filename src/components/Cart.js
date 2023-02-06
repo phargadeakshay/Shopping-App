@@ -11,12 +11,13 @@ const Cart = () => {
   const [couponresdata, setCouponresdata] = useState("");
   // console.log(coupon,"cccssssssssssssssk")
   const dispatch = useDispatch();
-  const { data: cartdata, status } = useSelector((state) => state.cartdata);
+  const { data: cartdata, status ,localdata} = useSelector((state) => state.cartdata);
   // // console.log(cartdata,"LLLL")
+  console.log(localdata,"LLLL")
   useEffect(() => {
     dispatch(fetchCartDetails());
   }, []);
-  console.log(cartdata, "LLLL");
+  // console.log(cartdata, "LLLL");
 
   const updateCart = (quantity, id, price) => {
     // dispatch(fetchToCart(updateddata));

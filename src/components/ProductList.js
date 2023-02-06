@@ -19,12 +19,13 @@ const ProductList = () => {
 
   const AddToCart = (item)=>{
     const obj = {
-      imageurl:item.imageurl,
+      imageurl:item.path,
       _id:item._id,
       price:item.price,
-      quantity:item.quantity,
+      quantity:1,
       name:item.name,
     }
+    console.log(item,"zzzzzzzzzzz",obj)
  dispatch(Addtocartred(obj))
   }
   return (

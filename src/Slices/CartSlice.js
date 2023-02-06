@@ -9,6 +9,7 @@ const CartSlice = createSlice({
   name: "cartslice",
   initialState: {
     data: [],
+    localdata: [12],
     state: STATUSES.idle,
   },
 
@@ -39,8 +40,15 @@ const CartSlice = createSlice({
         // console.log(action.payload,"remove form cart tttttttttttttt");
       },
 
+      // Addtocartred:(state,action)=>{
+      // // state.data=[...action.payload]
+      // state.localdata.push(action.payload)
+      // console.log(action.payload,"aaaaaaaaaaaaaaaaaaaa")
+      // }
       Addtocartred:(state,action)=>{
-      // state.data.push(action.payload)
+      // state.data=[...action.payload]
+      state.data.push(action.payload)
+      console.log(action.payload,"aaaaaaaaaaaaaaaaaaaa")
       }
   },
 
@@ -51,7 +59,7 @@ const CartSlice = createSlice({
         
       })
       .addCase(fetchCartDetails.fulfilled, (state, action) => {
-        state.data = action.payload;
+        state.data=action.payload;
         state.status = STATUSES.IDLE;
       })
       .addCase(fetchCartDetails.rejected, (state, action) => {
