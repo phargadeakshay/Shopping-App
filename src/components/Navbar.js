@@ -2,12 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-
+import { atozshort, ztoashort} from "../Slices/ProductListSlice";
 const Navbar = () => {
   const dispatch = useDispatch();
-  const [fliterrange, setFliteRrange] = useState(100);
-  const [isVisible, setIsVisible] = useState(false);
-
+  const SortProducts = (e) => {
+    if (e.target.value === "a_z") {
+    //   console.log(e.target.value, "rrrrrrrrrrrrrrrrrrrrr");
+      dispatch(atozshort());
+    } else if (e.target.value === "z_a") {
+      dispatch(ztoashort());
+    }
+ 
+  };
   const [navbar, setNavbar] = useState(false);
   return (
     <nav className="w-full bg-red-500 shadow">
@@ -83,7 +89,7 @@ const Navbar = () => {
                   name=""
                   id=""
                   className="w-56 rounded-lg h-8 border-none hover:text-gray-900 focus:outline-none"
-                 
+                  onChange={SortProducts}
                 >
                   <option value="">Sort Products</option>
                   <option value="a_z">A - Z</option>
@@ -93,6 +99,7 @@ const Navbar = () => {
                
                 </select>
               </li>
+       
             </ul>
           </div>
         </div>

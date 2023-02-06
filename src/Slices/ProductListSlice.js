@@ -13,7 +13,12 @@ const ProductListSlice = createSlice({
   },
 
   reducers: {
+
+    
   },
+  
+  
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchproductdata.pending, (state, action) => {
@@ -46,5 +51,5 @@ export const fetchproductdata = createAsyncThunk(
   }
 );  
 
-export const { } = ProductListSlice.actions;
+export const { atozshort, ztoashort,} = ProductListSlice.actions;
 export default ProductListSlice.reducer;
