@@ -2,18 +2,44 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { atozshort, ztoashort} from "../Slices/ProductListSlice";
+import { atozshort, ztoashort, } from "../Slices/ProductListSlice";
 const Navbar = () => {
   const dispatch = useDispatch();
+  const [fliterrange, setFliteRrange] = useState(100);
+  const [isVisible, setIsVisible] = useState(false);
   const SortProducts = (e) => {
     if (e.target.value === "a_z") {
-    //   console.log(e.target.value, "rrrrrrrrrrrrrrrrrrrrr");
+      console.log(e.target.value, "rrrrrrrrrrrrrrrrrrrrr");
       dispatch(atozshort());
     } else if (e.target.value === "z_a") {
       dispatch(ztoashort());
     }
- 
+    else if (e.target.value === "lowtohigh") {
+     
+    }
+    else if (e.target.value === "hightolow") {
+    
+    }
   };
+
+
+
+
+const PriceFilter = (type)=>{
+    // console.log(type,"__________________")
+    // dispatch(PricefilterRange({fliterrange,type}))
+    
+}
+
+
+
+
+
+
+
+
+
+console.log(fliterrange)
   const [navbar, setNavbar] = useState(false);
   return (
     <nav className="w-full bg-red-500 shadow">
@@ -99,7 +125,30 @@ const Navbar = () => {
                
                 </select>
               </li>
-       
+              <li>
+              <button id="myButton"  className="relative text-gray-500 font-semibold rounded-sm border p-1 w-40 bg-white" onClick={()=>setIsVisible(!isVisible)}>
+        Show Value
+      </button>
+              {isVisible && (
+        <div className="absolute z-10">
+          <div className="w-40 h-30 p-2 bg-gray-100 flex justify-center items-center flex-col">
+            <input
+              type="range"
+              min="100"
+              max="5000"
+              step="200"
+              value={fliterrange}
+              className="slider"
+              id="myRange"
+              onChange={(event) => setFliteRrange(event.target.value)}
+            />
+            <div>Price Range: {fliterrange}</div>
+            <button className="p-1 bg-red-500 px-5 rounded-md" onClick={()=>PriceFilter("filter")}>Filter</button>
+            <button className="p-1 bg-red-500 px-5 rounded-md" onClick={()=>PriceFilter("reset")}>reset</button>
+          </div>
+        </div>
+      )}
+              </li>
             </ul>
           </div>
         </div>
