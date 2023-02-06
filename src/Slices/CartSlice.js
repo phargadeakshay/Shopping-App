@@ -38,6 +38,10 @@ const CartSlice = createSlice({
         state.data = state.data.filter((item) => item._id !== action.payload);
         // console.log(action.payload,"remove form cart tttttttttttttt");
       },
+
+      Addtocartred:(state,action)=>{
+      // state.data.push(action.payload)
+      }
   },
 
   extraReducers: (builder) => {
@@ -70,5 +74,5 @@ export const fetchCartDetails = createAsyncThunk("cartslice", async () => {
   return cartitems;
 });
 
-export const { removecart,increament,decreament} = CartSlice.actions;
+export const { removecart,increament,decreament,Addtocartred} = CartSlice.actions;
 export default CartSlice.reducer;

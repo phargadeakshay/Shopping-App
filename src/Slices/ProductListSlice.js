@@ -44,7 +44,6 @@ const ProductListSlice = createSlice({
       });
     },
     PricefilterRange:(state,action)=>{
-
       // const a =  state.data.filter((item)=>item.name)
       const a = state.data.filter((item)=>item.price > 0)
       console.log("vqqqqqqqqqqqvvvvvvvvvvvvvvvv",a,"hi")

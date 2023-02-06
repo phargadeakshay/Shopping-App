@@ -3,7 +3,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchproductdata } from "../Slices/ProductListSlice";
-
+import { Addtocartred } from "../Slices/CartSlice";
 const ProductList = () => {
 
   const dispatch = useDispatch();
@@ -17,7 +17,16 @@ const ProductList = () => {
 
  console.log(productlistdata,"product list data")
 
-  // }
+  const AddToCart = (item)=>{
+    const obj = {
+      imageurl:item.imageurl,
+      _id:item._id,
+      price:item.price,
+      quantity:item.quantity,
+      name:item.name,
+    }
+ dispatch(Addtocartred(obj))
+  }
   return (
     <div className="bg-gray-200">
       <div className="container grid mx-auto md:col-start-1 md:col-end-6 md:col-span-4 bg-white">
@@ -45,7 +54,7 @@ const ProductList = () => {
                   </h2>
                   <p className="mt-1"> &#8377;{item.price}</p>
                   <p className="pb-1">Free Delevery</p>
-                  <button className="px-4 py-2 text-white  bg-pink-500 rounded-md shadow hover:bg-gray-800">Add to Cart</button>
+                  <button  onClick={()=>AddToCart(item)} className="px-4 py-2 text-white  bg-pink-500 rounded-md shadow hover:bg-gray-800">Add to Cart</button>
                 </div>
               </div>
             ))}
