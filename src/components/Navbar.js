@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { atozshort, ztoashort, } from "../Slices/ProductListSlice";
+import { atozshort, ztoashort,LowtoHigh,HightoLow,PricefilterRange } from "../Slices/ProductListSlice";
 const Navbar = () => {
   const dispatch = useDispatch();
   const [fliterrange, setFliteRrange] = useState(100);
@@ -15,10 +15,10 @@ const Navbar = () => {
       dispatch(ztoashort());
     }
     else if (e.target.value === "lowtohigh") {
-     
+      dispatch(LowtoHigh());
     }
     else if (e.target.value === "hightolow") {
-    
+      dispatch(HightoLow());
     }
   };
 
@@ -27,7 +27,7 @@ const Navbar = () => {
 
 const PriceFilter = (type)=>{
     // console.log(type,"__________________")
-    // dispatch(PricefilterRange({fliterrange,type}))
+    dispatch(PricefilterRange({fliterrange,type}))
     
 }
 
