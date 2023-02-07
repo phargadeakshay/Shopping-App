@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { url } from "../Url";
 export const STATUSES = Object.freeze({
   IDLE: "idle",
   LOADING: "loading",
@@ -9,7 +10,7 @@ const CartSlice = createSlice({
   name: "cartslice",
   initialState: {
     data: [],
-    localdata: [12],
+    localdata: [],
     state: STATUSES.idle,
   },
 
@@ -45,7 +46,7 @@ const CartSlice = createSlice({
       // state.localdata.push(action.payload)
       // console.log(action.payload,"aaaaaaaaaaaaaaaaaaaa")
       // }
-      Addtocartred:(state,action)=>{
+      Addtocartlocal:(state,action)=>{
       // state.data=[...action.payload]
       state.data.push(action.payload)
       console.log(action.payload,"aaaaaaaaaaaaaaaaaaaa")
@@ -60,6 +61,7 @@ const CartSlice = createSlice({
       })
       .addCase(fetchCartDetails.fulfilled, (state, action) => {
         state.data=action.payload;
+        // state.data.push(action.payload);
         state.status = STATUSES.IDLE;
       })
       .addCase(fetchCartDetails.rejected, (state, action) => {
@@ -70,7 +72,7 @@ const CartSlice = createSlice({
 
 export const fetchCartDetails = createAsyncThunk("cartslice", async () => {
   const email= "phargadeakshay@gmail.com"
-  const res = await fetch(`https://ecommerstore.onrender.com/getcartdata`, {
+  const res = await fetch(`${url}/getcartdata`, {
     method: "POST",
     mode: "cors",
     headers: {
@@ -82,5 +84,5 @@ export const fetchCartDetails = createAsyncThunk("cartslice", async () => {
   return cartitems;
 });
 
-export const { removecart,increament,decreament,Addtocartred} = CartSlice.actions;
+export const { removecart,increament,decreament,Addtocartlocal} = CartSlice.actions;
 export default CartSlice.reducer;

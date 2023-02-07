@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
+import { url } from "../Url";
 export const STATUSES = Object.freeze({
   IDLE: "idle",
   LOADING: "loading",
@@ -75,7 +77,7 @@ export const fetchproductdata = createAsyncThunk(
   "productdata/fetch",
   async () => {
     const response = await fetch(
-      `https://ecommerstore.onrender.com/gettshirtlist`,
+      `${url}/gettshirtlist`,
       {
         method: "GET",
         mode: "cors",

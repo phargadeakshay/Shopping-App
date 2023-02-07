@@ -11,9 +11,9 @@ const Cart = () => {
   const [couponresdata, setCouponresdata] = useState("");
   // console.log(coupon,"cccssssssssssssssk")
   const dispatch = useDispatch();
-  const { data: cartdata, status ,localdata} = useSelector((state) => state.cartdata);
+  const { data: cartdata, status} = useSelector((state) => state.cartdata);
   // // console.log(cartdata,"LLLL")
-  console.log(localdata,"LLLL")
+  // console.log(localdata,"LLLL")
   useEffect(() => {
     dispatch(fetchCartDetails());
   }, []);
@@ -260,9 +260,10 @@ const Cart = () => {
                 py-2
                 mt-2
                 text-sm text-indigo-100
-                bg-indigo-600
+                bg-red-600
                 rounded-md
-                hover:bg-indigo-700
+                hover:bg-red-700
+                font-semibold
               "
                 >
                   Apply
@@ -316,10 +317,10 @@ const Cart = () => {
             w-full
             py-2
             text-center text-white
-            bg-blue-500
+            bg-red-500
             rounded-md
             shadow
-            hover:bg-blue-600
+            hover:bg-red-600
           "
             >
               Proceed to Checkout

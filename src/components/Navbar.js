@@ -126,7 +126,7 @@ console.log(fliterrange)
                 </select>
               </li>
               <li>
-              <button id="myButton"  className="relative text-gray-500 font-semibold rounded-sm border p-1 w-40 bg-white" onClick={()=>setIsVisible(!isVisible)}>
+              <button id="myButton"  className="relative text-gray-500 font-semibold rounded-md border p-1 w-40 bg-white" onClick={()=>setIsVisible(!isVisible)}>
         Show Value
       </button>
               {isVisible && (

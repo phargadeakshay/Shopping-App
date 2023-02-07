@@ -3,7 +3,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchproductdata } from "../Slices/ProductListSlice";
-import { Addtocartred } from "../Slices/CartSlice";
+import { Addtocartlocal } from "../Slices/CartSlice";
+import { fetchToCart } from "../Slices/AddToCartSlice";
+import Swal from "sweetalert2";
 const ProductList = () => {
 
   const dispatch = useDispatch();
@@ -18,15 +20,18 @@ const ProductList = () => {
  console.log(productlistdata,"product list data")
 
   const AddToCart = (item)=>{
-    const obj = {
-      imageurl:item.path,
-      _id:item._id,
-      price:item.price,
-      quantity:1,
-      name:item.name,
-    }
-    console.log(item,"zzzzzzzzzzz",obj)
- dispatch(Addtocartred(obj))
+    const cartdata = {
+      imageurl: item.path,
+      price: item.price,
+      brand: item.brand,
+      name: item.name,
+      productid: item._id,
+      quantity: 1,
+      email:"phargadeakshay@gmail.com",
+    };
+    console.log(item,"zzzzzzzzzzz",cartdata)
+//  dispatch(Addtocartlocal(cartdata))
+ dispatch(fetchToCart(cartdata))
   }
   return (
     <div className="bg-gray-200">
@@ -35,7 +40,7 @@ const ProductList = () => {
           {productlistdata &&
             productlistdata.map((item, ind) => (
               <div
-                className="w-full border "
+                className="w-full border shadow-xl mt-2 rounded-md "
                 key={ind}
                 // onClick={() => handleClick(item._id)}
               >
