@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { url } from "../Url";
+import Swal from "sweetalert2";
 export const STATUSES = Object.freeze({
   IDLE: "idle",
   LOADING: "loading",
@@ -32,16 +33,26 @@ const CartSlice = createSlice({
              break; 
              //Stop this loop, we found it!
           }
+          else{
+            removecart(action.payload)
+          }
         }
 
       },
       
       removecart:(state, action)=> {
         state.data = state.data.filter((item) => item._id !== action.payload);
+        Swal.fire({
+          position: 'middle',
+          icon: 'success',
+          title:"Remove Item Succefull Form Cart",
+          showConfirmButton: false,
+          timer: 2500
+        })
         // console.log(action.payload,"remove form cart tttttttttttttt");
       },
 
-      // Addtocartred:(state,action)=>{
+      // Addtocartlocal:(state,action)=>{
       // // state.data=[...action.payload]
       // state.localdata.push(action.payload)
       // console.log(action.payload,"aaaaaaaaaaaaaaaaaaaa")

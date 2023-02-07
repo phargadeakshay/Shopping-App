@@ -50,7 +50,7 @@ export const fetchToCart = createAsyncThunk(
         icon: 'success',
         title: resData,
         showConfirmButton: false,
-        timer: 1500
+        timer: 2500
       })
     console.log(resData, "check Response From Api");
     return resData;
