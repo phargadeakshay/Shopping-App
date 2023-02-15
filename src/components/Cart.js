@@ -8,12 +8,12 @@ import { STATUSES } from "../Slices/CartSlice";
 import Loading from "react-loading";
 const Cart = () => {
   const [coupon, setCoupon] = useState("");
-  const [couponresdata, setCouponresdata] = useState("");
+  const [couponresdata, setCouponresdata] = useState();
   // console.log(coupon,"cccssssssssssssssk")
   const dispatch = useDispatch();
-  const { data: cartdata, status} = useSelector((state) => state.cartdata);
+  const { data: cartdata, status } = useSelector((state) => state.cartdata);
   // // console.log(cartdata,"LLLL")
-  // console.log(localdata,"LLLL")
+
   useEffect(() => {
     dispatch(fetchCartDetails());
   }, []);
@@ -43,6 +43,7 @@ const Cart = () => {
   var sutotal = 0;
   var mul = 1;
   var sum = 0;
+
   const totalPrice = () => {
     sum = parseFloat(sum);
     mul = parseFloat(mul);
@@ -54,7 +55,9 @@ const Cart = () => {
 
         mul = price * quantity;
         sum = sum + mul;
-        sutotal = sum;
+        // GSTAmount = (Value of supply x GST%)/100
+        // Price to be charged = Value of supply + GST Amount
+        sutotal = sutotal + mul;
       }, 1);
       if (couponresdata && couponresdata.status === 200) {
         sum -= couponresdata.data.discount;
@@ -63,6 +66,8 @@ const Cart = () => {
     }
   };
   totalPrice();
+  var GSTAmount = (sum * 21) / 100;
+  sum = GSTAmount + sum;
   // console.log(sutotal,sum,"------------------sum-----------")
   const CheckCouponCode = async () => {
     await axios
@@ -75,13 +80,12 @@ const Cart = () => {
       .then((res) => {
         setCouponresdata(res);
 
-        console.log(res, "11111111111", couponresdata.status);
+        // console.log(res, "11111111111", couponresdata.status);
       })
       .catch((error) => {
         console.log(error);
       });
   };
-  // // console.log(localStorage.getItem("email1"))
 
   if (status === STATUSES.LOADING) {
     return (
@@ -104,8 +108,8 @@ const Cart = () => {
             </h3>
           </div>
           <table className="w-full shadow-inner">
-            <thead>
-              <tr className="bg-gray-100">
+            <thead className="">
+              <tr className=" bg-green-600 text-white">
                 <th className="px-2 py-3 font-bold whitespace-nowrap">Image</th>
                 <th className="px-2 py-3 font-bold whitespace-nowrap">
                   Product Name
@@ -120,10 +124,13 @@ const Cart = () => {
               </tr>
             </thead>
             <tbody className="">
-              {Array.isArray(cartdata) ? (
+              {Array.isArray(cartdata) &&
                 cartdata &&
                 cartdata.map((item, ind) => (
-                  <tr key={ind}>
+                  <tr
+                    key={ind}
+                    className="my-24 bg-green-100 transition duration-500 ease-in-out hover:bg-green-400  duration-900  border2 border-white"
+                  >
                     <td>
                       <div className="flex justify-center">
                         <img
@@ -171,7 +178,7 @@ const Cart = () => {
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="inline-flex w-6 h-6 text-green-600"
+                            className="inline-flex w-6 h-6 text-green-800"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -208,16 +215,10 @@ const Cart = () => {
                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                           />
                         </svg>
-                        
                       </button>
                     </td>
                   </tr>
-                ))
-              ) : (
-                <tr className="flex justify-center">
-                  <td>{cartdata}</td>
-                </tr>
-              )}
+                ))}
             </tbody>
           </table>
           <div className="lg:w-2/4">
@@ -232,7 +233,7 @@ const Cart = () => {
                 <input
                   type="text"
                   placeholder="coupon code mm7a710sm  this free coupon"
-                //   value="mm7a710sm"
+                  //   value="mm7a710sm"
                   onChange={(e) => setCoupon(e.target.value)}
                   className="
                 w-full
@@ -259,10 +260,10 @@ const Cart = () => {
                 px-2
                 py-2
                 mt-2
-                text-sm text-indigo-100
-                bg-red-600
+                text-sm
+                text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700
                 rounded-md
-                hover:bg-red-700
+                hover:bg-gradient-to-br
                 font-semibold
               "
                 >
@@ -289,11 +290,13 @@ const Cart = () => {
                       <span>00</span>
                     ))}
                 </span>
-                {/* {!couponresdata && <span className="font-bold text-red-600">00</span>} */}
+                {!couponresdata && (
+                  <span className="font-bold text-red-600">00</span>
+                )}
               </div>
               <div className="flex justify-between px-4">
                 <span className="font-bold">Sales Tax</span>
-                <span className="font-bold">&#8377;00</span>
+                <span className="font-bold">+&#8377; {GSTAmount}</span>
               </div>
               <div
                 className="
@@ -316,18 +319,17 @@ const Cart = () => {
               className="
             w-full
             py-2
-            text-center text-white
-            bg-red-500
+            text-center
+            text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700
             rounded-md
             shadow
-            hover:bg-red-600
+          
           "
             >
               Proceed to Checkout
             </button>
           </div>
         </div>
-        {/* // pppppppppppppppp */}
       </div>
     </div>
   );

@@ -34,13 +34,13 @@ const ProductList = () => {
  dispatch(fetchToCart(cartdata))
   }
   return (
-    <div className="bg-gray-200">
+    <div className="">
       <div className="container grid mx-auto md:col-start-1 md:col-end-6 md:col-span-4 bg-white">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:gap-9 pb-5  ">
           {productlistdata &&
             productlistdata.map((item, ind) => (
               <div
-                className="w-full border shadow-xl mt-2 rounded-md "
+                className="w-full border shadow-xl mt-2 rounded-md hover:shadow-lg hover:scale-105 hover:bg-violet-100 transition-transform duration-300 ease-in-out  "
                 key={ind}
                 // onClick={() => handleClick(item._id)}
               >
@@ -60,7 +60,8 @@ const ProductList = () => {
                   </h2>
                   <p className="mt-1"> &#8377;{item.price}</p>
                   <p className="pb-1">Free Delevery</p>
-                  <button  onClick={()=>AddToCart(item)} className="px-4 py-2 text-white  bg-pink-500 rounded-md shadow hover:bg-gray-800">Add to Cart</button>
+                  <button  onClick={()=>AddToCart(item)} className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4  focus:ring-purple-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Add to Cart</button>
+                
                 </div>
               </div>
             ))}
